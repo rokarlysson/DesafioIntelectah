@@ -15,7 +15,5 @@ namespace ApplicationCore.Dto
 
         [Required(ErrorMessage = "O campo Id do tipo de exame é obrigatório.")]
         public int TipoExameId { get; set; }
-
-        public TipoExameDto TipoExame { get; set; }
     }
 }

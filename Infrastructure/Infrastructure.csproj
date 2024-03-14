@@ -63,8 +63,11 @@
     <Compile Include="Entities\Exame.cs" />
     <Compile Include="Entities\Paciente.cs" />
     <Compile Include="Entities\TipoExame.cs" />
+    <Compile Include="Interfaces\IConsultasRepository.cs" />
     <Compile Include="Interfaces\IBaseRepository.cs" />
-    <Compile Include="Interfaces\IPacienteRepository.cs" />
+    <Compile Include="Interfaces\IExamesRepository.cs" />
+    <Compile Include="Interfaces\IPacientesRepository.cs" />
+    <Compile Include="Interfaces\ITiposExameRepository.cs" />
     <Compile Include="Migrations\202403101614336_IntelectahDb-V1.cs" />
     <Compile Include="Migrations\202403101614336_IntelectahDb-V1.Designer.cs">
       <DependentUpon>202403101614336_IntelectahDb-V1.cs</DependentUpon>
@@ -77,7 +80,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Repositories\BaseRepository.cs" />
-    <Compile Include="Repositories\PacienteRepository.cs" />
+    <Compile Include="Repositories\ConsultasRepository.cs" />
+    <Compile Include="Repositories\ExamesRepository.cs" />
+    <Compile Include="Repositories\PacientesRepository.cs" />
+    <Compile Include="Repositories\TiposExameRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

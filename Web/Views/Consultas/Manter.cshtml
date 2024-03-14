@@ -31,9 +31,17 @@
         </div>
 
         <div class="form-group">
+            @Html.Label("TiposExame", "Tipos de Exame", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("Tipos de Exame", ViewBag.TiposExame as SelectList, "Selecione um Tipo de Exame", new { @id = "tipoExameSelect", @class = "form-control" })
+                @Html.ValidationMessage("TiposExame", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.ExameId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ExameId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.ExameId, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Selecione um Exame", new { @id = "exameSelect", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ExameId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,4 +69,23 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#tipoExameSelect').change(function () {
+                const tipoExameId = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '@Url.Action("CarregarExames", "Consultas")',
+                    data: { tipoExameId: tipoExameId },
+                    success: function (exames) {
+                        $('#exameSelect').empty();
+                        $.each(exames, function (i, exame) {
+                            $('#exameSelect').append($('<option>').text(exame.Nome).attr('value', exame.Id));
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 }

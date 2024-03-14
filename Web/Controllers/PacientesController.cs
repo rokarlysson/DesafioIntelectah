@@ -8,9 +8,9 @@ namespace Web.Controllers
 {
     public class PacientesController : Controller
     {
-        private readonly IPacienteService _pacienteService;
+        private readonly IPacientesService _pacienteService;
 
-        public PacientesController(IPacienteService pacienteService)
+        public PacientesController(IPacientesService pacienteService)
         {
             _pacienteService = pacienteService;
             ViewBag.SexoSelectList = new SelectList(GetSexoList(), "Value", "Text");
@@ -93,8 +93,7 @@ namespace Web.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _pacienteService.ExcluirPaciente(id);
             }
             catch
             {

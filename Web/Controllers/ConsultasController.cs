@@ -1,11 +1,28 @@
 ﻿using System;
 using System.Web.Mvc;
 using ApplicationCore.Dto;
+using ApplicationCore.Interfaces;
 
 namespace Web.Controllers
 {
     public class ConsultasController : Controller
     {
+        private readonly IConsultasService _consultasService;
+        private readonly IPacientesService _pacientesService;
+        private readonly ITiposExameService _tiposExameService;
+        private readonly IExamesService _examesService;
+
+        public ConsultasController(IConsultasService consultasService,
+                                   IPacientesService pacientesService,
+                                   ITiposExameService tiposExameService,
+                                   IExamesService examesService)
+        {
+            _consultasService = consultasService;
+            _pacientesService = pacientesService;
+            _tiposExameService = tiposExameService;
+            _examesService = examesService;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -13,8 +30,8 @@ namespace Web.Controllers
 
         public ActionResult Criar()
         {
-            //ViewBag.PacienteId = new SelectList(db.Pacientes, "Id", "Nome");
-            //ViewBag.TipoExameId = new SelectList(db.TiposExame, "Id", "Nome");
+            ViewBag.PacienteId = new SelectList(_pacientesService.ListarPacientes(), "Id", "Nome");
+            ViewBag.TipoExameId = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome");
             return View("Manter");
         }
 
@@ -26,21 +43,24 @@ namespace Web.Controllers
             {
                 return View("Manter", novaConsulta);
             }
-            
-            if (!VerificarConflitoDeHorarios(novaConsulta))
+
+            if (!_consultasService.VerificarConflitoDeHorarios(novaConsulta))
             {
                 ModelState.AddModelError("DataHora", "Conflito de horários. Selecione outra data e hora.");
             }
             else
             {
                 novaConsulta.NumeroProtocolo = GerarNumeroDeProtocolo();
-                //db.Consultas.Add(consulta);
-                //db.SaveChanges();
+
+                _consultasService.ManterConsulta(novaConsulta);
+
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.PacienteId = new SelectList(db.Pacientes, "Id", "Nome", consulta.PacienteId);
-            //ViewBag.TipoExameId = new SelectList(db.TiposExame, "Id", "Nome", consulta.Exame?.TipoExameId);
+            ViewBag.PacienteId = new SelectList(_pacientesService.ListarPacientes(), "Id", "Nome", novaConsulta.PacienteId);
+
+            var exame = _examesService.BuscarExame(novaConsulta.ExameId);
+            ViewBag.TipoExameId = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome", exame.TipoExameId);
             return View("Manter", novaConsulta);
         }
 
@@ -81,13 +101,10 @@ namespace Web.Controllers
             return RedirectToAction("Index");
         }
 
-        private static bool VerificarConflitoDeHorarios(ConsultaDto novaConsulta)
+        public ActionResult CarregarExames(int tipoExameId)
         {
-            return false;
-            //return !db.Consultas.Any(c =>
-            //    c.DataHora == novaConsulta.DataHora &&
-            //    c.PacienteId == novaConsulta.PacienteId &&
-            //    c.Id != novaConsulta.Id);
+            var exames = _examesService.ListarExamesPeloTipo(tipoExameId);
+            return Json(exames, JsonRequestBehavior.AllowGet);
         }
 
         private static string GerarNumeroDeProtocolo()

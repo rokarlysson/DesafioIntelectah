@@ -18,13 +18,20 @@ namespace Infrastructure.Repositories
             _dbSet = _contexto.Set<TEntity>();
         }
 
-        public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, bool>> orderBy = null)
+        /// <summary>
+        /// Consulta os dados utilizando uma expressão LINQ representando uma condição WHERE.
+        /// Opcionalmente, pode-se passar uma segunda expressão LINQ representando um ORDER BY DESC
+        /// </summary>
+        /// <param name="where">condição</param>
+        /// <param name="orderByDesc">ordenação</param>
+        /// <returns>IQueryable&lt;TEntity&gt;</returns>
+        public IQueryable<TEntity> Query(Expression<Func<TEntity, bool>> where, Expression<Func<TEntity, bool>> orderByDesc = null)
         {
             var query = _dbSet.Where(where);
 
-            if (orderBy != null)
+            if (orderByDesc != null)
             {
-                query = query.OrderBy(orderBy);
+                query = query.OrderByDescending(orderByDesc);
             }
 
             return query;
@@ -40,7 +47,7 @@ namespace Infrastructure.Repositories
             return _dbSet.ToList();
         }
 
-        public void Add(TEntity entity)
+        public void Insert(TEntity entity)
         {
             _dbSet.Add(entity);
         }

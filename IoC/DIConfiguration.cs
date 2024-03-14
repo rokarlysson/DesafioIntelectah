@@ -10,12 +10,18 @@ namespace IoC
     {
         public static void RegistrarRepositorios(IUnityContainer container)
         {
-            container.RegisterType<IPacienteRepository, PacienteRepository>();
+            container.RegisterType<IPacientesRepository, PacientesRepository>();
+            container.RegisterType<IExamesRepository, ExamesRepository>();
+            container.RegisterType<ITiposExameRepository, TiposExameRepository>();
+            container.RegisterType<IConsultasRepository, ConsultasRepository>();
         }
 
         public static void RegistrarServicos(IUnityContainer container)
         {
-            container.RegisterType<IPacienteService, PacienteService>();
+            container.RegisterType<IPacientesService, PacientesService>();
+            container.RegisterType<IExamesService, ExamesService>();
+            container.RegisterType<ITiposExameService, TiposExameService>();
+            container.RegisterType<IConsultasService, ConsultasService>();
         }
     }
 }

@@ -13,7 +13,5 @@ namespace ApplicationCore.Dto
 
         [StringLength(256, ErrorMessage = "O campo Descrição não pode ter mais de 256 caracteres.")]
         public string Descricao { get; set; }
-
-        public IEnumerable<ExameDto> Exames { get; set; }
     }
 }

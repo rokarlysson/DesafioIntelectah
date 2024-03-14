@@ -8,15 +8,15 @@ using Infrastructure.Interfaces;
 
 namespace ApplicationCore.Services
 {
-    public class PacienteService : IPacienteService
+    public class PacientesService : IPacientesService
     {
-        private readonly IPacienteRepository _repository;
-        public PacienteService(IPacienteRepository repository)
+        private readonly IPacientesRepository _repository;
+        public PacientesService(IPacientesRepository repository)
         {
             _repository = repository;
         }
 
-        public IEnumerable<PacienteDto> BuscarPacientes()
+        public IEnumerable<PacienteDto> ListarPacientes()
         {
             return _repository.GetAll()
                 .Select(x => new PacienteDto
@@ -31,7 +31,7 @@ namespace ApplicationCore.Services
                 });
         }
 
-        public PacienteDto GetPaciente(int id)
+        public PacienteDto BuscarPaciente(int id)
         {
             var entidade = _repository.GetById(id);
             return new PacienteDto
@@ -67,7 +67,14 @@ namespace ApplicationCore.Services
                 return;
             }
 
-            _repository.Add(entidade);
+            _repository.Insert(entidade);
+            _repository.Commit();
+        }
+
+        public void ExcluirPaciente(int id)
+        {
+            var entidade = _repository.GetById(id);
+            _repository.Delete(entidade);
             _repository.Commit();
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Interfaces
 {
-    public interface IPacienteRepository : IBaseRepository<Paciente>
+    public interface IPacientesRepository : IBaseRepository<Paciente>
     {
     }
 }

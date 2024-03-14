@@ -36,8 +36,6 @@ namespace ApplicationCore.Dto
         [EmailAddress(ErrorMessage = "E-mail inválido.")]
         public string Email { get; set; }
 
-        public virtual IEnumerable<ConsultaDto> Consultas { get; set; }
-
         public string TelefoneNumerico()
         {
             return string.IsNullOrEmpty(Telefone) ? string.Empty : TelefoneRegex.Replace(Telefone, string.Empty);
