@@ -1,21 +1,29 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ApplicationCore.Dto;
 using ApplicationCore.Interfaces;
+using Infrastructure.Interfaces;
 
 namespace ApplicationCore.Services
 {
     public class TiposExameService : ITiposExameService
     {
-         
+        private readonly ITiposExameRepository _repositoy;
 
-        public TiposExameService()
+        public TiposExameService(ITiposExameRepository repositoy)
         {
-            
+            _repositoy = repositoy;
         }
 
         public IEnumerable<TipoExameDto> ListarTiposExame()
         {
-            throw new System.NotImplementedException();
+            return _repositoy.GetAll()
+                             .Select(x => new TipoExameDto
+                             {
+                                 Id = x.Id,
+                                 Nome = x.Nome,
+                                 Descricao = x.Descricao
+                             });
         }
 
         public TipoExameDto BuscarTipoExame(int id)

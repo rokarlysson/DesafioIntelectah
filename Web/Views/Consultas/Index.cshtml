@@ -37,14 +37,16 @@
     @foreach (var item in Model)
     {
         <tr>
+            @Html.HiddenFor(modelItem => item.ExameId)
+            @Html.HiddenFor(modelItem => item.PacienteId)
             <td>
-                @Html.DisplayFor(modelItem => item.PacienteId)
+                @Html.DisplayFor(modelItem => item.NomePaciente)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DataHora)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ExameId)
+                @Html.DisplayFor(modelItem => item.NomeExame)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.NumeroProtocolo)

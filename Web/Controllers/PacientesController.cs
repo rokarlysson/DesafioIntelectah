@@ -18,7 +18,7 @@ namespace Web.Controllers
 
         public ActionResult Index()
         {
-            var pacientes = _pacienteService.BuscarPacientes();
+            var pacientes = _pacienteService.ListarPacientes();
             return View(pacientes.ToList());
         }
 
@@ -62,7 +62,7 @@ namespace Web.Controllers
 
         public ActionResult Editar(int id)
         {
-            var paciente = _pacienteService.GetPaciente(id);
+            var paciente = _pacienteService.BuscarPaciente(id);
             ViewBag.SexoSelectList = new SelectList(GetSexoList(), "Value", "Text", paciente.Sexo);
             return View("Manter", paciente);
         }

@@ -25,7 +25,9 @@ namespace Web.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var consultas = _consultasService.ListarConsultas();
+
+            return View(consultas);
         }
 
         public ActionResult Criar()
@@ -63,24 +65,24 @@ namespace Web.Controllers
             ViewBag.TipoExameId = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome", exame.TipoExameId);
             return View("Manter", novaConsulta);
         }
-
-        public ActionResult Editar(int id)
-        {
-            return View("Manter");
-        }
-
+        
         [HttpPost]
         public ActionResult Editar(ConsultaDto consultaEditada)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Manter", consultaEditada);
+            }
+
             try
             {
-                // TODO: Add update logic here
+               _consultasService.ManterConsulta(consultaEditada);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View("Manter");
+                return View("Manter", consultaEditada);
             }
         }
 
@@ -89,8 +91,7 @@ namespace Web.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
+                _consultasService.ExcluirConsulta(id);
             }
             catch
             {
