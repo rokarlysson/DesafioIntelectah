@@ -13,7 +13,7 @@ namespace Web.Controllers
         public PacientesController(IPacientesService pacienteService)
         {
             _pacienteService = pacienteService;
-            ViewBag.SexoSelectList = new SelectList(GetSexoList(), "Value", "Text");
+            
         }
 
         public ActionResult Index()
@@ -24,20 +24,8 @@ namespace Web.Controllers
 
         public ActionResult Criar()
         {
+            ViewBag.SexoSelectList = new SelectList(GetSexoList(), "Value", "Text");
             return View("Manter");
-        }
-
-        private static IEnumerable<SelectListItem> GetSexoList()
-        {
-            var sexoListItems = new List<SelectListItem>
-            {
-                new SelectListItem{Value = null, Text = "- [Selecione] -"},
-                new SelectListItem { Value = "M", Text = "Masculino" },
-                new SelectListItem { Value = "F", Text = "Feminino" },
-                new SelectListItem { Value = "N", Text = "Não-declarado"}  
-            };
-
-            return new SelectList(sexoListItems, "Value", "Text");
         }
 
         [HttpPost]
@@ -83,6 +71,7 @@ namespace Web.Controllers
             }
             catch
             {
+                ViewBag.SexoSelectList = new SelectList(GetSexoList(), "Value", "Text", pacienteEditado.Sexo);
                 return View("Manter", pacienteEditado);
             }
         }
@@ -101,6 +90,18 @@ namespace Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        private static IEnumerable<SelectListItem> GetSexoList()
+        {
+            var sexoListItems = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "M", Text = "Masculino" },
+                new SelectListItem { Value = "F", Text = "Feminino" },
+                new SelectListItem { Value = "N", Text = "Não-declarado"}
+            };
+
+            return new SelectList(sexoListItems, "Value", "Text");
         }
     }
 }

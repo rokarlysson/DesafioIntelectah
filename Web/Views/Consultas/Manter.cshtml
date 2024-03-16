@@ -34,15 +34,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.TipoExameId, "Tipos de Exame", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TipoExameId, ViewBag.TiposExame as SelectList, "Selecione um Tipo de Exame", new { @id = "tipoExameSelect", @class = "form-control" })
-                @Html.ValidationMessage("TiposExame", "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.TipoExameId, ViewBag.TiposExame as SelectList, "... Selecione ...", new { @id = "tipoExameSelect", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TipoExameId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ExameId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.ExameId, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Selecione um Exame", new { @id = "exameSelect", @class = "form-control" })
+                @Html.DropDownListFor(model => model.ExameId, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "... Selecione ...", new { @id = "exameSelect", @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ExameId, "", new { @class = "text-danger" })
             </div>
         </div>

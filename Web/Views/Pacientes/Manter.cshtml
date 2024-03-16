@@ -41,7 +41,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Sexo, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Sexo, ViewBag.SexoSelectList as SelectList, new { @id = "sexoSelectList", @class = "selectList show-tick form-control", @title = "Escolha opção entre sexo Masculino e Feminino" })
+                @Html.DropDownListFor(model => model.Sexo, ViewBag.SexoSelectList as SelectList, "... Selecione ...", new { @id = "sexoSelectList", @class = "selectList show-tick form-control", @title = "Escolha opção entre sexo Masculino e Feminino" })
                 @Html.ValidationMessageFor(model => model.Sexo, "", new { @class = "text-danger" })
             </div>
         </div>

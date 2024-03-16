@@ -1,13 +1,22 @@
 ﻿using System.Web.Mvc;
 using ApplicationCore.Dto;
+using ApplicationCore.Interfaces;
 
 namespace Web.Controllers
 {
     public class TiposExameController : Controller
     {
+        private readonly ITiposExameService _tiposExameService;
+
+        public TiposExameController(ITiposExameService tiposExameService)
+        {
+            _tiposExameService = tiposExameService;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var tiposExame = _tiposExameService.ListarTiposExame();
+            return View(tiposExame);
         }
         
         
@@ -19,44 +28,57 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Criar(TipoExameDto novoTipoExame)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Manter", novoTipoExame);
+            }
+
             try
             {
-                // TODO: Add insert logic here
+                _tiposExameService.ManterTipoExame(novoTipoExame);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View("Manter");
+                return View("Manter", novoTipoExame);
             }
         }
         
         public ActionResult Editar(int id)
         {
-            return View("Manter");
+            var tipoExame = _tiposExameService.BuscarTipoExame(id);
+
+            return View("Manter", tipoExame);
         }
         
         [HttpPost]
         public ActionResult Editar(TipoExameDto tipoExameEditado)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return View("Manter", tipoExameEditado);
+            }
+
             try
             {
-                // TODO: Add update logic here
+                _tiposExameService.ManterTipoExame(tipoExameEditado);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View("Manter");
+                return View("Manter", tipoExameEditado);
             }
         }
         
         [HttpPost]
-        public ActionResult Excluir(int id, FormCollection collection)
+        public ActionResult Excluir(int id)
         {
             try
             {
-                // TODO: Add delete logic here
+                _tiposExameService.ExcluirTipoExame(id);
             }
             catch
             {

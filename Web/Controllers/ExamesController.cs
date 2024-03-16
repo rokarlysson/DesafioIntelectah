@@ -1,15 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using ApplicationCore.Dto;
+using ApplicationCore.Interfaces;
 
 namespace Web.Controllers
 {
     public class ExamesController : Controller
     {
+        private readonly IExamesService _examesService;
+
+        public ExamesController(IExamesService examesService)
+        {
+            _examesService = examesService;
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var exames = _examesService.ListarExames();
+
+            return View(exames);
         }
         
         public ActionResult Criar()
@@ -21,35 +29,47 @@ namespace Web.Controllers
         [HttpPost]
         public ActionResult Criar(ExameDto novoExame)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Manter", novoExame);
+            }
+
             try
             {
-                // TODO: Add insert logic here
+                _examesService.ManterExame(novoExame);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View("Manter");
+                return View("Manter", novoExame);
             }
         }
         
         public ActionResult Editar(int id)
         {
-            return View("Manter");
+            var exame = _examesService.BuscarExame(id);
+
+            return View("Manter", exame);
         }
 
         [HttpPost]
         public ActionResult Editar(ExameDto exameEditado)
         {
+            if (!ModelState.IsValid)
+            {
+                return View("Manter", exameEditado);
+            }
+
             try
             {
-                // TODO: Add update logic here
+                _examesService.ManterExame(exameEditado);
 
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View("Manter");
+                return View("Manter", exameEditado);
             }
         }
         
@@ -58,8 +78,7 @@ namespace Web.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-                
+                _examesService.ExcluirExame(id);
             }
             catch
             {
