@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using ApplicationCore.Dto;
 using ApplicationCore.Interfaces;
 
@@ -7,10 +8,12 @@ namespace Web.Controllers
     public class ExamesController : Controller
     {
         private readonly IExamesService _examesService;
+        private readonly ITiposExameService _tiposExameService;
 
-        public ExamesController(IExamesService examesService)
+        public ExamesController(IExamesService examesService, ITiposExameService tiposExameService)
         {
             _examesService = examesService;
+            _tiposExameService = tiposExameService;
         }
 
         public ActionResult Index()
@@ -22,6 +25,7 @@ namespace Web.Controllers
         
         public ActionResult Criar()
         {
+            ViewBag.TiposExame = GetTiposExameList();
             return View("Manter");
         }
 
@@ -87,6 +91,13 @@ namespace Web.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        private IEnumerable<SelectListItem> GetTiposExameList()
+        {
+            var tiposExame = _tiposExameService.ListarTiposExame();
+
+            return new SelectList(tiposExame, "Id", "Nome");
         }
     }
 }

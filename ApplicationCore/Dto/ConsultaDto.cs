@@ -14,7 +14,6 @@ namespace ApplicationCore.Dto
 
         [Display(Name = "Data")]
         [Required(ErrorMessage = "O campo Data e Hora é obrigatório.")]
-        [DataType(DataType.DateTime)]
         public DateTime DataHora { get; set; }
 
         [Display(Name = "Exame")]
