@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Infrastructure.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace ApplicationCore.Dto
@@ -11,8 +12,8 @@ namespace ApplicationCore.Dto
         public int PacienteId { get; set; }
 
         public string NomePaciente { get; set; }
-
-        [Display(Name = "Data")]
+        
+        [Display(Name = "Horário")]
         [Required(ErrorMessage = "O campo Data e Hora é obrigatório.")]
         public DateTime DataHora { get; set; }
 
@@ -24,8 +25,7 @@ namespace ApplicationCore.Dto
 
         public string NomeExame { get; set; }
 
-        [Display(Name = "Número do Protocolo")]
-        [Required(ErrorMessage = "O campo Número de Protocolo é obrigatório.")]
+        [Display(Name = "Protocolo")]
         public string NumeroProtocolo { get; set; }
     }
 }

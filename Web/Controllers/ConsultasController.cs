@@ -32,8 +32,8 @@ namespace Web.Controllers
 
         public ActionResult Criar()
         {
-            ViewBag.PacienteId = new SelectList(_pacientesService.ListarPacientes(), "Id", "Nome");
-            ViewBag.TipoExameId = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome");
+            ViewBag.Pacientes = new SelectList(_pacientesService.ListarPacientes(), "Id", "Nome");
+            ViewBag.TiposExame = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome");
             return View("Manter");
         }
 
@@ -59,11 +59,25 @@ namespace Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.PacienteId = new SelectList(_pacientesService.ListarPacientes(), "Id", "Nome", novaConsulta.PacienteId);
+            ViewBag.Pacientes = new SelectList(_pacientesService.ListarPacientes(), "Id", "Nome", novaConsulta.PacienteId);
 
-            var exame = _examesService.BuscarExame(novaConsulta.ExameId);
-            ViewBag.TipoExameId = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome", exame.TipoExameId);
+            ViewBag.TiposExame = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome", novaConsulta.TipoExameId);
+
+            ViewBag.Exames = new SelectList(_examesService.ListarExamesPeloTipo(novaConsulta.TipoExameId), "Id", "Nome", novaConsulta.ExameId);
+
             return View("Manter", novaConsulta);
+        }
+
+        public ActionResult Editar(int id)
+        {
+            var consulta = _consultasService.BuscarConsulta(id);
+            ViewBag.Pacientes = new SelectList(_pacientesService.ListarPacientes(), "Id", "Nome", consulta.PacienteId);
+            
+            ViewBag.TiposExame = new SelectList(_tiposExameService.ListarTiposExame(), "Id", "Nome", consulta.TipoExameId);
+
+            ViewBag.Exames = new SelectList(_examesService.ListarExamesPeloTipo(consulta.TipoExameId), "Id", "Nome", consulta.ExameId);
+
+            return View("Manter", consulta);
         }
         
         [HttpPost]

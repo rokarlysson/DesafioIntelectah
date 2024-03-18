@@ -19,14 +19,14 @@ namespace ApplicationCore.Services
         public IEnumerable<ExameDto> ListarExamesPeloTipo(int tipoExameId)
         {
             return _repository.ListarExamesPorTipo(tipoExameId)
-                              .Select(x => new ExameDto
-                              {
-                                  Id = x.Id,
-                                  Nome = x.Nome,
-                                  Observacoes = x.Observacoes,
-                                  TipoExameId = x.TipoExameId,
-                                  NomeTipoExame = x.TipoExame?.Nome
-                              }).AsEnumerable();
+                .Select(x => new ExameDto
+                {
+                    Id = x.Id,
+                    Nome = x.Nome,
+                    Observacoes = x.Observacoes,
+                    TipoExameId = x.TipoExameId,
+                    NomeTipoExame = x.TipoExame?.Nome
+                }); ;
         }
 
         public IEnumerable<ExameDto> ListarExames()

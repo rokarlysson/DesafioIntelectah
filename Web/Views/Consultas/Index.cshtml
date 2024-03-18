@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.NumeroProtocolo)
             </td>
             <td>
-                @Html.ActionLink("Editar", "Editar", new { id = item.Id })
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new {@onclick=""})
                 @Html.ActionLink("Excluir", "Excluir", new { id = item.Id })
             </td>
         </tr>

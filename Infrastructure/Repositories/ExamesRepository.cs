@@ -15,7 +15,7 @@ namespace Infrastructure.Repositories
 
         public IEnumerable<Exame> ListarExamesPorTipo(int tipoExameId)
         {
-            return Query(x => x.TipoExameId == tipoExameId).AsEnumerable();
+            return Query(x => x.TipoExameId == tipoExameId).ToList();
         }
     }
 }
