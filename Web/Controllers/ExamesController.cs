@@ -22,7 +22,7 @@ namespace Web.Controllers
 
             return View(exames);
         }
-        
+
         public ActionResult Criar()
         {
             ViewBag.TiposExame = GetTiposExameList();
@@ -49,7 +49,7 @@ namespace Web.Controllers
                 return View("Manter", novoExame);
             }
         }
-        
+
         public ActionResult Editar(int id)
         {
             var exame = _examesService.BuscarExame(id);
@@ -76,8 +76,7 @@ namespace Web.Controllers
                 return View("Manter", exameEditado);
             }
         }
-        
-        [HttpPost]
+
         public ActionResult Excluir(int id)
         {
             try
@@ -87,7 +86,7 @@ namespace Web.Controllers
             catch
             {
                 ViewBag.Error = "Falha ao excluir registro";
-                
+
             }
 
             return RedirectToAction("Index");

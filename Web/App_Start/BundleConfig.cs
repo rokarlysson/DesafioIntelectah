@@ -17,6 +17,9 @@ namespace Web
             bundles.Add(new ScriptBundle("~/bundles/inputmask").Include(
                 "~/Scripts/inputmask/jquery.inputmask.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker").Include(
+                "~/Scripts/jquery.datetimepicker.js", "~/Scripts/jquery.datetimepicker-config.js"));
+
             // Use a versão em desenvolvimento do Modernizr para desenvolver e aprender com ela. Após isso, quando você estiver
             // pronto para a produção, utilize a ferramenta de build em https://modernizr.com para escolher somente os testes que precisa.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -34,6 +37,9 @@ namespace Web
 
             bundles.Add(new StyleBundle("~/Content/bootstrap-select/css").Include(
                 "~/Content/bootstrap-select.css"));
+
+            bundles.Add(new StyleBundle("~/Content/datetimepicker/css").Include(
+                "~/Content/jquery.datetimepicker.css"));
         }
     }
 }

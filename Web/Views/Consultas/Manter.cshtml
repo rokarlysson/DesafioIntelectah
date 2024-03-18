@@ -18,7 +18,7 @@
             @Html.LabelFor(model => model.PacienteId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.HiddenFor(model => model.PacienteId)
-                @Html.EditorFor(model => model.NomePaciente,new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.NomePaciente, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.PacienteId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.DataHora, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DataHora, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.EditorFor(model => model.DataHora, new { htmlAttributes = new { @class = "form-control dateTimePicker" } })
                 @Html.ValidationMessageFor(model => model.DataHora, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -70,8 +70,10 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/datetimepicker")
 
     <script type="text/javascript">
+
         $(document).ready(function () {
             $('#tipoExameSelect').change(function () {
                 const tipoExameId = $(this).val();
@@ -88,5 +90,6 @@
                 });
             });
         });
+
     </script>
 }

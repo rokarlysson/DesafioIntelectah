@@ -75,9 +75,7 @@ namespace Web.Controllers
                 return View("Manter", pacienteEditado);
             }
         }
-
-
-        [HttpPost]
+        
         public ActionResult Excluir(int id)
         {
             try

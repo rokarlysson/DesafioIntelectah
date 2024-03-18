@@ -24,7 +24,8 @@ namespace ApplicationCore.Services
                                   Id = x.Id,
                                   Nome = x.Nome,
                                   Observacoes = x.Observacoes,
-                                  TipoExameId = x.TipoExameId
+                                  TipoExameId = x.TipoExameId,
+                                  NomeTipoExame = x.TipoExame?.Nome
                               }).AsEnumerable();
         }
 
@@ -36,7 +37,8 @@ namespace ApplicationCore.Services
                                   Id = x.Id,
                                   Nome = x.Nome,
                                   Observacoes = x.Observacoes,
-                                  TipoExameId = x.TipoExameId
+                                  TipoExameId = x.TipoExameId,
+                                  NomeTipoExame = x.TipoExame?.Nome
                               });
         }
 
@@ -49,7 +51,8 @@ namespace ApplicationCore.Services
                 Id = entidade.Id,
                 Nome = entidade.Nome,
                 Observacoes = entidade.Observacoes,
-                TipoExameId = entidade.TipoExameId
+                TipoExameId = entidade.TipoExameId,
+                NomeTipoExame = entidade.TipoExame?.Nome
             };
         }
 

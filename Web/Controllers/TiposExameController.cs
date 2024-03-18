@@ -73,7 +73,6 @@ namespace Web.Controllers
             }
         }
         
-        [HttpPost]
         public ActionResult Excluir(int id)
         {
             try

@@ -85,8 +85,7 @@ namespace Web.Controllers
                 return View("Manter", consultaEditada);
             }
         }
-
-        [HttpPost]
+        
         public ActionResult Excluir(int id)
         {
             try

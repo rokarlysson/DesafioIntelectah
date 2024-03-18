@@ -14,6 +14,9 @@ namespace ApplicationCore.Dto
         public string Observacoes { get; set; }
 
         [Required(ErrorMessage = "O campo Id do tipo de exame é obrigatório.")]
+        [Display(Name = "Tipo de Exame")]
         public int TipoExameId { get; set; }
+
+        public string NomeTipoExame { get; set; }
     }
 }

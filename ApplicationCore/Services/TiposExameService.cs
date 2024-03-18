@@ -62,6 +62,7 @@ namespace ApplicationCore.Services
         {
             var entidade = _repositoy.GetById(id);
             _repositoy.Delete(entidade);
+            _repositoy.Commit();
         }
     }
 }
