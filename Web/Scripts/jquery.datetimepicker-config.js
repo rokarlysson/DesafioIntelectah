@@ -11,6 +11,7 @@
 		prevText: 'Anterior',
 		format: 'd/m/Y H:i',
 		mask: '99/99/9999 99:99',
+		minDate: 0,
 		onClose: function () {
 			try {
 				$(this).valid();
